@@ -1,5 +1,5 @@
 import Card from '@components/Card';
-import {examples} from "@/data/crud";
+import {crud, examples} from "@/data/crud";
 import styles from './page.module.css';
 
 export default async function Page() {
@@ -17,10 +17,21 @@ export default async function Page() {
              Icon={Icon}
              />
         ))}
+        {crud.map(({ id, method, verb, description, color, Icon }) => (
+          <Card
+             key={id}
+             id={id}
+             verb={verb}
+             method={method}
+             description={description}
+             color={color}
+             Icon={Icon}
+             />
+        ))}
     </main>
     <footer className={styles.footer}>
     <p>codeVerse &copy; {new Date().getFullYear()}</p>
-    <p>Netx.js - Axios - Ant Design - Lucite</p>
+    <p>Next.js - Axios - Ant Design - Lucite</p>
     </footer>
     </>
   )

@@ -12,8 +12,8 @@ export default function ApiKeyPage() {
     useEffect(() => {
         async function buscarSeries() {
             try {
-                const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_SERIES}?limit=50`, {
-                    headers: { 'x-api-key': process.env.NEXT_PLUBIC_API_KEY},
+                const resp = await axios.get(`${process.env.NEXT_PUBLIC_URL_SERIES}?limit=50`, {
+                    headers: { 'x-api-key': process.env.NEXT_PUBLIC_API_KEY},
                 });
                 toast.success('Séries carregadas!', { id: 'getApiKey' })
                 setSeries(resp.data.data);
