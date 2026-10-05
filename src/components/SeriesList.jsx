@@ -1,19 +1,21 @@
 'use client';
 
-import { useEffect} from "react";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
+import toast from "react-hot-toast"
 
-export default function SeriesList({ series }) {
+export default function SerieList ({ series }){
     useEffect(() => {
         sessionStorage.setItem('series', JSON.stringify(series));
-        toast.success('Séries buscadas via SSR e salvas no sessionStorage!', { id: 'ssr' });
-    }, [series]);
+        toast.success('Series buscada via a SSR a salvas no sessionstorege',{ id: 'ssr'})
+    },[series]);
 
     return (
         <ul>
-            {series.map((item) => {
-                <li key={item.id}>{item.title}</li>
-            })}
+            {series.map((item) => (
+                <li key={item.id}>
+                    {item.title}
+                </li>
+            ))}
         </ul>
     )
 }

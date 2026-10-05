@@ -14,7 +14,7 @@ export default function ReadPage() {
         async function buscarSeries() {
             try {
                 const resp = await axios.get('/api/series?limit=50');
-                setSeries(resp.data.data);
+                setSeries(Array.isArray(resp.data?.data) ? resp.data.data : []);
                 toast.success('Séries carregadas!', { id: 'read' });
             } catch (error) {
                 toast.error('Erro ao buscar as séries', { id: 'read' });

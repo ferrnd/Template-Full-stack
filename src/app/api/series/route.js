@@ -5,7 +5,7 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
 
     try {
-        const resp = await axios.get(process.env.API_URL_SERIES, {
+        const resp = await axios.get(process.env.URL_SERIES, {
             params: Object.fromEntries(searchParams),
             headers: { 'x-api-key': process.env.API_KEY },
         });
@@ -22,7 +22,7 @@ export async function POST(req) {
     const body = await req.json();
 
     try {
-        const response = await axios.post(process.env.API_URL_SERIES, body, {
+        const response = await axios.post(process.env.URL_SERIES, body, {
             headers: { 'x-api-key': process.env.API_KEY},
         });
 

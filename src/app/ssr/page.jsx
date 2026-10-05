@@ -2,14 +2,14 @@ import SeriesList from '@components/SeriesList'
 import axios from 'axios';
 
 export default async function GetPage() {
-    let series;
+    let series = [];
 
     try {
         const resp = await axios.get(`${process.env.URL_SERIES}?limit=50`, {
             headers: { 'x-api-key': process.env.API_KEY },
         });
-        
-        series = resp.data.data;
+
+        series = Array.isArray(resp.data?.data) ? resp.data.data : [];
     } catch (error) {
         console.error(error);
     } 
