@@ -28,10 +28,10 @@ export async function POST(req) {
 
         return NextResponse.json(response.data);
     } catch (error) {
-        const status = 500;
-        const data = {error: 'Erro ao criar série.'};
+        const status = error.response?.status || 500;
+        const data = error.response?.data || { error: 'Erro ao criar série.' };
 
-        return NextResponse.json(data, {status});
+        return NextResponse.json(data, { status });
         
     }
 }
