@@ -1,0 +1,14 @@
+.title,
+.message {
+    text-align: center;
+}
+
+.message {
+    margin: 0 0 1rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
