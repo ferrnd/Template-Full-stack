@@ -1,0 +1,138 @@
+.page {
+    width: min(900px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 2rem 0;
+    gap: 0.7rem;
+    justify-content: center;
+}
+
+.heading {
+    margin: 0;
+    color: #18354a;
+    font-size: 1.5rem;
+}
+
+.description,
+.networkNote {
+    max-width: 680px;
+    text-align: center;
+    line-height: 1.55;
+}
+
+.description {
+    color: #294a60;
+}
+
+.networkNote {
+    margin-bottom: 0.6rem;
+    color: #526d7c;
+    font-size: 0.875rem;
+}
+
+.seriesCard {
+    width: min(100%, 760px);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgb(28 67 91 / 12%);
+}
+
+.seriesContent {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.withImage {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.posterFrame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background: #edf4f7;
+}
+
+.poster {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.poster :global(img) {
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+}
+
+.details {
+    min-width: 0;
+}
+
+.facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.25rem;
+    margin: 0;
+}
+
+.fact {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #e6edf1;
+}
+
+.fact dt {
+    color: #657784;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.fact dd {
+    margin-top: 0.25rem;
+    color: #1e303c;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.imageLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    color: #0969a8;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.imageLink:hover {
+    text-decoration: underline;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+    .page {
+        width: calc(100% - 1.5rem);
+        padding: 1.25rem 0;
+    }
+
+    .withImage {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .posterFrame {
+        padding: 0.35rem;
+    }
+
+    .facts {
+        gap: 0 0.75rem;
+    }
+}
