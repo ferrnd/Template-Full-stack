@@ -21,10 +21,10 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label='Título'
                     rules={[
                         {
-                            required: true, 
-                            min: 3, 
+                            required: true,
+                            min: 3,
                             max: 120,
-                            message: 'Título obrigatório (entre 3 e 120 caracteres)'
+                            message: 'Título obrigatório (entre 3 e 120 caracteres).'
                         },
                     ]}
                 >
@@ -64,6 +64,7 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                         {
                             required: true, 
                             type: 'number',
+                            min: 1,
                             message: 'Número de temporadas é obrigatório.'
                         },
                     ]}>
@@ -84,12 +85,12 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                 </Form.Item>
 
                 <Form.Item
-                    name='imagemUrl'
+                    name='imageUrl'
                     label='URL da imagem'
                     rules={[
                         {
-                            type: 'url', 
-                            message: 'Ano de Lançamento é obrigatório.'
+                            type: 'url',
+                            message: 'Informe uma URL válida.'
                         },
                     ]}>
                     <Input placeholder='ex: https;//codeverse.dev.br/breaking-bad.png'/>
