@@ -18,7 +18,8 @@ export default function CreatePage() {
             setOpenModal(false);
             toast.success('Série criada!', { id: 'create' });
         } catch (error) {
-            toast.error('Erro ao criar a série.', { id: 'create' });
+            const message = error.response?.data?.message || error.response?.data?.error || 'Erro ao criar a série.';
+            toast.error(message, { id: 'create' });
             console.error(error);
         } finally {
             setLoading(false);
