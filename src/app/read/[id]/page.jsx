@@ -1,11 +1,14 @@
 'use client';
 
-import FormModal from '@/components/formModal';
+import { Button, Card, Image, Skeleton } from 'antd';
 import axios from 'axios';
-import { Button, Card, Modal, Skeleton } from 'antd';
+import { ExternalLink, Pencil, Trash2 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import ConfirmDelete from '@/components/ConfirmDelete';
+import FormModal from '@/components/formModal';
+import styles from './page.module.css';
 
 export default function ReadByIdPage() {
     const { id } = useParams();
@@ -29,7 +32,6 @@ export default function ReadByIdPage() {
                 setLoading(false);
             }
         }
-
         if (id) buscarSerie();
     }, [id]);
 
@@ -53,10 +55,10 @@ export default function ReadByIdPage() {
 
         try {
             await axios.delete(`/api/series/${id}`);
-            toast.success('Série excluída!', { id: 'read-id' });
+            toast.success('Série excluída!', { id: 'delete-sucess' });
             router.push('/read');
         } catch {
-            toast.error('Erro ao excluir a série.', { id: 'read-id' });
+            toast.error('Erro ao excluir a série.', { id: 'delete-error' });
         } finally {
             setDeleting(false);
             setDeleteOpen(false);
@@ -64,10 +66,14 @@ export default function ReadByIdPage() {
     }
 
     return (
-        <main>
-            <h2>Get By Id - read</h2>
-            <p>O navegador busca, edita e exclui pelo /api/series/[id] (nosso route.js); o servidor fala com a API usando a api-key privada.</p>
-            <p>Abra o DevTools - Network: aparece a série (GET/PUT/DELETE), sem x-api-key.</p>
+        <main className={styles.page}>
+            <h2 className={styles.heading}>Get By Id - read</h2>
+            <p className={styles.description}>
+                O navegador busca, edita e exclui pelo /api/series/[id]; o servidor fala com a API usando a api-key privada.
+            </p>
+            <p className={styles.networkNote}>
+                No DevTools, a chamada aparece sem x-api-key no navegador.
+            </p>
 
             {loading ? (
                 <div className="skeleton">
@@ -76,18 +82,57 @@ export default function ReadByIdPage() {
             ) : (
                 serie && (
                     <>
-                        <Card title={serie.title}>
-                            <p>Gênero: {serie.genero}</p>
-                            <p>Plataforma: {serie.plataforma}</p>
-                            <p>Temporadas: {serie.numero_temporadas}</p>
-                            <p>Ano de lançamento: {serie.ano_lancamento}</p>
+                        <Card title={serie.title} className={styles.seriesCard}>
+                            <div className={`${styles.seriesContent} ${serie.imageUrl ? styles.withImage : ''}`}>
+                                {serie.imageUrl && (
+                                    <div className={styles.posterFrame}>
+                                        <Image
+                                            src={serie.imageUrl}
+                                            alt={`Imagem de ${serie.title}`}
+                                            width="100%"
+                                            className={styles.poster}
+                                        />
+                                    </div>
+                                )}
+                                <div className={styles.details}>
+                                    <dl className={styles.facts}>
+                                        <div className={styles.fact}>
+                                            <dt>Gênero</dt>
+                                            <dd>{serie.genero}</dd>
+                                        </div>
+                                        <div className={styles.fact}>
+                                            <dt>Plataforma</dt>
+                                            <dd>{serie.plataforma}</dd>
+                                        </div>
+                                        <div className={styles.fact}>
+                                            <dt>Temporadas</dt>
+                                            <dd>{serie.numero_temporadas}</dd>
+                                        </div>
+                                        <div className={styles.fact}>
+                                            <dt>Ano de lançamento</dt>
+                                            <dd>{serie.ano_lancamento}</dd>
+                                        </div>
+                                    </dl>
+                                    {serie.imageUrl && (
+                                        <a
+                                            className={styles.imageLink}
+                                            href={serie.imageUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            <ExternalLink size={15} aria-hidden="true" />
+                                            Abrir imagem original
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
                         </Card>
 
-                        <div className="actions">
-                            <Button type="primary" onClick={() => setEditOpen(true)}>
+                        <div className={styles.actions}>
+                            <Button type="primary" icon={<Pencil size={16} />} onClick={() => setEditOpen(true)}>
                                 Editar
                             </Button>
-                            <Button danger onClick={() => setDeleteOpen(true)}>
+                            <Button danger icon={<Trash2 size={16} />} onClick={() => setDeleteOpen(true)}>
                                 Excluir
                             </Button>
                         </div>
@@ -100,18 +145,13 @@ export default function ReadByIdPage() {
                             onCancel={() => setEditOpen(false)}
                         />
 
-                        <Modal
-                            open={deleteOpen}
-                            title="Excluir série"
-                            okText="Excluir"
-                            cancelText="Cancelar"
-                            okButtonProps={{ danger: true }}
+                        <ConfirmDelete
+                            openModal={deleteOpen}
+                            serie={serie}
                             confirmLoading={deleting}
-                            onOk={handleDelete}
+                            onConfirm={handleDelete}
                             onCancel={() => setDeleteOpen(false)}
-                        >
-                            <p>Tem certeza que deseja excluir esta série?</p>
-                        </Modal>
+                        />
                     </>
                 )
             )}
